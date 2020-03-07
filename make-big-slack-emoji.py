@@ -1,25 +1,33 @@
 from PIL import Image
 import argparse
+import os
 BUCKET_SIZE = 128
 
 
-def loopThroughPixels(file):
+def loopThroughPixels(file, output_dir):
     im = Image.open(file)
     width, height = im.size
     print(width, height)
-    whole_image = []
     for idx_x, x in enumerate(range(0, width, BUCKET_SIZE)):
         start_x = x
         end_x = x + BUCKET_SIZE - 1 if x + BUCKET_SIZE - 1 < width else width
-        to_add = []
         for idx_y, y in enumerate(range(0, height, BUCKET_SIZE)):
             start_y = y
             end_y = y + BUCKET_SIZE - 1 if y + BUCKET_SIZE - 1 < height else height
             im.crop((start_x, start_y, end_x, end_y)).save(
-                "{0}_{1}_{2}.png".format(file.replace(".png", ""), idx_x, idx_y))
-            to_add.append("{0}_{1}_{2}".format(file.replace(".png", ""), idx_x, idx_y))
-        whole_image.append(to_add)
+                "{0}/{1}_{2}_{3}.png".format(output_dir, file.replace(".png", ""), idx_x, idx_y))
     print_slack_images(file, width, height)
+
+
+def make_output_dir(filename):
+    dir_name = filename.replace(".png", "") + "-output"
+    try:
+        # Create target Directory
+        os.mkdir(dir_name)
+        print("Directory ", dir_name, " Created ")
+    except FileExistsError:
+        print("Directory ", dir_name, " already exists")
+    return dir_name
 
 
 def print_slack_images(file, width, height):
@@ -30,7 +38,8 @@ def print_slack_images(file, width, height):
 
 
 def main(args):
-    loopThroughPixels(args.file)
+    output_dir = make_output_dir(args.file)
+    loopThroughPixels(args.file, output_dir)
 
 
 if __name__ == '__main__':
