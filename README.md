@@ -8,6 +8,8 @@ The output image will be put in the output directory named `<image-name>-output`
 
 In its current state this does not upload the emojis for you, I recommend using [this chrome plugin](https://chrome.google.com/webstore/detail/neutral-face-emoji-tools/anchoacphlfbdomdlomnbbfhcmcdmjej)
 
+*CURRENTLY ONLY WORKS WITH PNGS!!!*
+
 ## Usage
 
 To use simply install the dependencies in `requirements.txt` (ideally in a virtual environment) and then run the following command!
