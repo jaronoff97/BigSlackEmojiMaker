@@ -15,3 +15,5 @@ To use simply install the dependencies in `requirements.txt` (ideally in a virtu
 ```
 python make-big-slack-emoji.py <image-name>
 ```
+
+The output of the command is what you will use to actually print the image in slack!!! (verbatim!)
