@@ -10,10 +10,11 @@ def loopThroughPixels(file, output_dir):
     print(width, height)
     for idx_x, x in enumerate(range(0, width, BUCKET_SIZE)):
         start_x = x
-        end_x = x + BUCKET_SIZE - 1 if x + BUCKET_SIZE - 1 < width else width
+        end_x = x + BUCKET_SIZE
         for idx_y, y in enumerate(range(0, height, BUCKET_SIZE)):
             start_y = y
-            end_y = y + BUCKET_SIZE - 1 if y + BUCKET_SIZE - 1 < height else height
+            end_y = y + BUCKET_SIZE
+            print((start_x, start_y, end_x, end_y))
             im.crop((start_x, start_y, end_x, end_y)).save(
                 "{0}/{1}_{2}_{3}.png".format(output_dir, file.replace(".png", ""), idx_x, idx_y))
     print_slack_images(file, width, height)
