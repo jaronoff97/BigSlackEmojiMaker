@@ -135,4 +135,5 @@ dmypy.json
 .pytype/
 
 *-output/
-*.png
+*.png.gitignore
+.DS_Store
